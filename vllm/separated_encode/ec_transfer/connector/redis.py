@@ -13,7 +13,8 @@ from vllm.separated_encode.ec_transfer.connector.template import (
 from vllm.logger import init_logger
 
 logger = init_logger(__name__)
-
+REDIS_IP = os.getenv("REDIS_IP", "localhost")
+REDIS_PORT = int(os.getenv("REDIS_PORT", 6379))
 class RedisECConnector(ECConnectorTemplate):
 
     def __init__(self,
@@ -25,7 +26,7 @@ class RedisECConnector(ECConnectorTemplate):
                      [str, int, NDArray[np.float32]], None]],
                  redis_host: str = "localhost",
                  redis_port: int = 6379):
-        self.redis_client = redis.StrictRedis(host=redis_host, port=redis_port)
+        self.redis_client = redis.StrictRedis(host=REDIS_IP, port=REDIS_PORT)
         self.rank = vllm_config.epd_disagg_config.epd_rank
         super().__init__(
             vllm_config,
