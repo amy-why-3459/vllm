@@ -4,6 +4,7 @@ from typing import Callable, Literal, Optional
 
 import msgpack_numpy
 import numpy as np
+import os
 import redis
 from numpy.typing import NDArray
 
